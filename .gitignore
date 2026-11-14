@@ -1,0 +1,11 @@
+# Python/Jupyter
+__pycache__/
+.ipynb_checkpoints/
+*.py[cod]
+.env
+.venv/
+
+# Local/private datasets and exports
+mobile_customers.xlsx
+anonymised_customers.csv
+supermarket_transactions.xlsx
