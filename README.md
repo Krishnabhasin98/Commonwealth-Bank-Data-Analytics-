@@ -1,143 +1,54 @@
 # Commonwealth Bank — Introduction to Data Science Job Simulation
 
-The official simulation outlines four activities:
+This repository documents the four activities in the Forage Commonwealth Bank Data Science Job Simulation.
 
-1. **Data Aggregation and Analysis** — analyse a supermarket transaction dataset, answer specific business questions, and document the calculations.
-2. **Data Anonymisation** — remove or transform personal information while retaining useful analytical attributes.
-3. **Propose Data Analysis Approaches** — consider what insights can be derived from Commonwealth Bank social-media/X data, including structured and unstructured information and API-related fields.
-4. **Designing a Database** — propose a structured way to organise social-media information. In this learner's activity, the design was prepared for submission/pasting into the provided dashboard; this repository does **not** claim that a live SQL database was implemented.
+## Repository contents
 
-## 2. Repository contents
+- `Task-1-Data-Aggregation-and-Analysis/analysis.ipynb` — pandas analysis for the supermarket transaction questions.
+- `Task-2-Data-Anonymisation/anonymisation.ipynb` — customer-data minimisation and generalisation workflow.
+- `Task-3-Data-Analysis-Approach/social_media_analysis.ipynb` — exploratory analysis of the supplied simulated social-media dataset.
+- `requirements.txt` — Python dependencies.
+- `.gitignore` — excludes private customer files and local data.
 
-```text
-Commonwealth-Bank-Data-Science-Job-Simulation/
-│
-├── Task-1-Data-Aggregation-and-Analysis/
-│   ├── Commonwealth_Bank_Data_Analysis.ipynb
-│   ├── supermarket_transactions.xlsx
-│   └── Commonwealth_Bank_Data_Analysis.xlsx
-│
-├── Task-2-Data-Anonymisation/
-│   └── Commonwealth_Bank_Data_Anonymisation.ipynb
-│
-├── Task-3-Data-Analysis-Approach/
-│   ├── Commonwealth_Bank_Social_Media_Analysis.ipynb
-│   └── commonwealth_bank_social_media_dataset.xlsx
-│
-├── README.md
-├── requirements.txt
-└── .gitignore
-```
+## Task 1 — Data Aggregation and Analysis
 
----
+The notebook answers the simulation's three business questions by filtering and aggregating the supermarket transaction data:
 
-## 3. Task 1 — Data Aggregation and Analysis
+| Business question | Result from the submitted analysis |
+|---|---:|
+| Cash-purchased apples across all locations | **117 apples** |
+| Total spending on apples | **2,051.73** |
+| Non-member spending at Bakershire | **2,857.51** |
 
-### Objective
+The original workbook contained 50,783 transactions across 48 stores. The source transaction workbook is not included in this initial GitHub upload; place the supplied `supermarket_transactions.xlsx` beside the notebook locally to run it.
 
-The simulation asks the learner to analyse a supermarket transaction dataset, answer business questions using filters and aggregations, and document the formulas/methodology in a spreadsheet.
+## Task 2 — Data Anonymisation
 
-### Dataset
+The workflow covers removal of direct identifiers and payment details, age and salary banding, UUID replacement, and removal of additional location/employer fields. The original input `mobile_customers.xlsx` and generated `anonymised_customers.csv` are intentionally excluded because they contain customer-level personal or sensitive information. The notebook expects the original workbook locally and writes its output locally; do not publish customer-level records.
 
-- **Rows:** 50,783 transactions
-- **Columns:** 12
-- **Stores:** 48
-- **Date range:** 16 June 2019 – 15 June 2022
-- **Payment methods represented:** cash, contactless, debit card and credit card
+These transformations reduce identifiability but do not prove that a dataset is fully anonymous.
 
-### Work performed
+## Task 3 — Propose Data Analysis Approaches
 
-The notebook loads the transaction workbook with pandas, inspects the dataset structure, and examines product, payment-method, store and customer-type distributions. It then filters the transaction data and sums the relevant fields to answer three questions. The accompanying Excel workbook records an executive summary, filtering criteria, metrics and aggregation methods.
+The notebook loads the `Social_Media_Posts` sheet from `commonwealth_bank_social_media_dataset.xlsx`. This workbook contains 60 simulated posts, not actual Commonwealth Bank customer or social-media records. The source workbook was not included in this initial GitHub upload; place it beside the notebook locally to run the analysis.
 
-### Results from the submitted notebook
+Findings previously calculated from the supplied simulated workbook:
+- 26 positive, 15 neutral, 11 negative and 8 mixed posts.
+- 11 posts marked as needing a response.
+- Digital banking was the most frequent topic (13 posts).
+- Fraud & scams had the highest total engagement in this sample (36,283).
 
-| Business question                                               | Method                                                                           |         Result |
-| --------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------: |
-| How many apples were purchased using cash across all locations? | Filter `product_name = apple` and `payment_method = cash`; sum `quantity`        | **117 apples** |
-| What was the total spending on apples across all locations?     | Filter `product_name = apple`; sum `total_amount`                                |   **2,051.73** |
-| How much did non-member customers spend at Bakershire?          | Filter `store = Bakershire` and `customer_type = non-member`; sum `total_amount` |   **2,857.51** |
+## Task 4 — Designing a Database
 
----
+The activity involved preparing a database design for submission in the provided dashboard. This repository does not claim that a live SQL database was implemented.
 
-## 4. Task 2 — Data Anonymisation
-
-### Objective
-
-The activity focuses on protecting customer privacy while retaining fields that may still be useful for analysis. The supplied customer dataset contains personal and payment-related information.
-
-### Dataset profile observed in the notebook
-
-- **Records:** 10,000
-- **Original columns:** 19
-- **Missing values:** none reported by the notebook's initial inspection
-- **Unique original customer IDs:** 10,000
-
-### Transformations performed in the submitted notebook
-
-1. Removed direct identifiers and sensitive payment details, including username, name, address, email, birthdate, credit-card number, security code and expiry.
-2. Generalised exact ages into bands: `Up to 25`, `26–35`, `36–45`, `46–55`, and `56+`.
-3. Generalised salary into ranges: `0–50K`, `50K–100K`, `100K–150K`, `150K–200K`, and `200K–250K`.
-4. Replaced the original customer IDs with newly generated UUIDs.
-5. Removed additional location/employer fields (`residence`, `current_location`, `employer`) from the final table.
-6. Exported a reduced seven-column dataset in the original working environment.
-
----
-
-## 5. Task 3 — Propose Data Analysis Approaches
-
-### Objective
-
-The activity introduces the use of social-media information to understand customer interests and engagement. The simulation context refers to Commonwealth Bank's X/Twitter presence and the potential use of API fields. It encourages consideration of structured metrics alongside unstructured post text.
-
-### Supplied dataset
-
-The supplied workbook contains **60 simulated social-media posts** and supporting sheets: a README, data dictionary, analysis prompts and resources. It includes fields such as post time, post type, author type, text, topic, content format, sentiment, likes, replies, reposts, views, link clicks, total engagements, engagement rate, customer intent and whether a response is needed.
-
-### Additional exploratory findings from the supplied simulated posts
-
-| Finding                                | Result |
-| -------------------------------------- | -----: |
-| Total simulated posts                  | **60** |
-| Posts labelled positive                | **26** |
-| Posts labelled neutral                 | **15** |
-| Posts labelled negative                | **11** |
-| Posts labelled mixed                   |  **8** |
-| Posts marked as needing a response     | **11** |
-| Posts not marked as needing a response | **49** |
-
-**Topic and engagement observations**
-
-- `Digital banking` is the most frequent topic, with **13 posts**.
-- `Fraud & scams` has **11 posts** and the highest total engagement in this sample: **36,283 engagements** across those posts.
-- `Security education` has the highest average engagement rate among the topics with multiple posts: approximately **3.85%** across five posts.
-- `Outage/service issue` has five posts and a lower average engagement rate of approximately **1.35%**.
-- The highest-engagement individual post is `SM048` (Fraud & scams), with **210,000 views**, **12,165 total engagements**, and an engagement rate of approximately **5.79%**.
-
----
-
-## 7. Tools and concepts
-
-- Python
-- pandas
-- Jupyter Notebook
-- Excel / `.xlsx` workbooks
-- Data filtering and aggregation
-- Data inspection and exploratory analysis
-- Data minimisation, generalisation and de-identification concepts
-- Social-media metrics, sentiment labels and customer-intent analysis
-- Database-design concepts (proposal-level activity only)
-
-## 8. Running the notebooks
-
-Install the common dependencies:
+## Setup
 
 ```bash
 pip install -r requirements.txt
-```
-
-Launch Jupyter:
-
-```bash
 jupyter notebook
 ```
 
+## Tools and concepts
+
+Python, pandas, Jupyter Notebook, Excel, data aggregation, exploratory data analysis, data minimisation, generalisation, de-identification, sentiment labels, customer intent, and database-design concepts.
